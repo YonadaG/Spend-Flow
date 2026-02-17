@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  expense_transaction: one
+  image_url: MyString
+  ocr_text: MyText
+  ocr_provider: MyString
+  processing_status: MyString
+
+two:
+  user: two
+  expense_transaction: two
+  image_url: MyString
+  ocr_text: MyText
+  ocr_provider: MyString
+  processing_status: MyString

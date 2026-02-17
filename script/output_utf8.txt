@@ -1,0 +1,19 @@
+Current Time: 2026-02-17 10:46:27 UTC
+Testing: 'Date: 17-02-2026 10:00:00'
+Result: 2026-02-17T10:00:00+00:00
+---
+Testing: 'Transaction Time: 17/02/2026'
+Result: 2026-02-17
+---
+Testing: '(17-02-2026 10:30:45)'
+Result: 2026-02-17T10:30:45+00:00
+---
+Testing: 'Date: 2026-02-17'
+Result: 2026-02-17
+---
+Testing: '17 Feb 2026 12:00'
+Result: 2026-02-17
+---
+Testing: 'Paid on 17-02-2026'
+Result: 2026-02-17
+---

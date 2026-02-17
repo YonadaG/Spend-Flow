@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  amount: 9.99
+  currency: MyString
+  direction: MyString
+  system_category: MyString
+  user_category: MyString
+  merchant_name: MyString
+  institution: MyString
+  transaction_type: MyString
+  payment_reason: MyText
+  occurred_at: 2026-02-12 11:45:03
+  confidence_score: 1.5
+  raw_text: MyText
+
+two:
+  user: two
+  amount: 9.99
+  currency: MyString
+  direction: MyString
+  system_category: MyString
+  user_category: MyString
+  merchant_name: MyString
+  institution: MyString
+  transaction_type: MyString
+  payment_reason: MyText
+  occurred_at: 2026-02-12 11:45:03
+  confidence_score: 1.5
+  raw_text: MyText
