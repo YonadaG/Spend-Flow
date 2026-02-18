@@ -77,6 +77,36 @@
     background-color: #f9fafb;
 }
 
+.input-icon-wrapper.has-toggle input {
+    padding-right: 44px;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 9999px;
+    background: #f3f4f6;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.password-toggle-btn:hover {
+    background: #e5e7eb;
+    color: var(--text-main);
+}
+
 .input-icon-wrapper input:focus {
     background-color: white;
 }

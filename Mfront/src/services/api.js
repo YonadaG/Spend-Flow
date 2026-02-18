@@ -49,6 +49,10 @@ export const transactionAPI = {
     });
     return response.data;
   },
+  createManual: async (data) => {
+    const response = await api.post('/transactions', data);
+    return response.data;
+  },
   update: async (id, data) => {
     const response = await api.patch(`/transactions/${id}`, data);
     return response.data;

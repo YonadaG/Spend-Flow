@@ -12,6 +12,8 @@ import UploadTransfer from './pages/UploadTransfer';
 import DashboardLayout from './components/DashboardLayout';
 import Categories from './pages/Categories';
 import CategoryDetails from './pages/CategoryDetails';
+import AddCategory from './pages/AddCategory';
+import AddTransaction from './pages/AddTransaction';
 
 import { ToastProvider } from './context/ToastContext';
 import { AuthProvider } from './context/AuthContext';
@@ -27,7 +29,9 @@ function App() {
             <Route path="/" element={<DashboardLayout />}>
               <Route index element={<Dashboard />} />
               <Route path="transactions" element={<Transactions />} />
+              <Route path="transactions/new" element={<AddTransaction />} />
               <Route path="categories" element={<Categories />} />
+              <Route path="categories/new" element={<AddCategory />} />
               <Route path="categories/:id" element={<CategoryDetails />} />
               <Route path="reports" element={<Reports />} />
               <Route path="accounts" element={<Accounts />} />

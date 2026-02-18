@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
-import { FaWallet, FaEnvelope, FaLock, FaUser } from 'react-icons/fa';
+import { FaWallet, FaEnvelope, FaLock, FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
 import './Auth.css';
 
 const Signup = () => {
@@ -10,6 +10,8 @@ const Signup = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [name, setName] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     // const [error, setError] = useState('');
     const { signup } = useAuth();
     const { error: toastError } = useToast();
@@ -24,7 +26,7 @@ const Signup = () => {
             return;
         }
 
-        const result = await signup(email, password, confirmPassword, name);
+        const result = await signup(email, password, name);
         if (result.success) {
             navigate('/');
         } else {
@@ -76,31 +78,47 @@ const Signup = () => {
 
                     <div className="form-group">
                         <label>Password</label>
-                        <div className="input-icon-wrapper">
+                        <div className="input-icon-wrapper has-toggle">
                             <FaLock className="input-icon" />
                             <input
-                                type="password"
+                                type={showPassword ? 'text' : 'password'}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder="Create a strong password"
                                 required
                                 minLength={6}
                             />
+                            <button
+                                type="button"
+                                className="password-toggle-btn"
+                                onClick={() => setShowPassword((prev) => !prev)}
+                                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </button>
                         </div>
                     </div>
 
                     <div className="form-group">
                         <label>Confirm Password</label>
-                        <div className="input-icon-wrapper">
+                        <div className="input-icon-wrapper has-toggle">
                             <FaLock className="input-icon" />
                             <input
-                                type="password"
+                                type={showConfirmPassword ? 'text' : 'password'}
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 placeholder="Confirm your password"
                                 required
                                 minLength={6}
                             />
+                            <button
+                                type="button"
+                                className="password-toggle-btn"
+                                onClick={() => setShowConfirmPassword((prev) => !prev)}
+                                aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+                            >
+                                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                            </button>
                         </div>
                     </div>
 

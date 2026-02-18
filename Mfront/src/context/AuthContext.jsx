@@ -43,7 +43,11 @@ export const AuthProvider = ({ children }) => {
             }
         } catch (error) {
             console.error("Login failed", error);
-            return { success: false, error: error.response?.data?.error || 'Login failed' };
+            const status = error.response?.status;
+            if (status === 401 || status === 404 || status === 422) {
+                return { success: false, error: 'Invalid email or password.' };
+            }
+            return { success: false, error: error.response?.data?.error || 'Login failed. Please try again.' };
         }
     };
 

@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
-import { FaWallet, FaEnvelope, FaLock } from 'react-icons/fa';
+import { FaWallet, FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import './Auth.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     // Remove local error state
     // const [error, setError] = useState('');
     const { login } = useAuth();
@@ -55,15 +56,23 @@ const Login = () => {
 
                     <div className="form-group">
                         <label>Password</label>
-                        <div className="input-icon-wrapper">
+                        <div className="input-icon-wrapper has-toggle">
                             <FaLock className="input-icon" />
                             <input
-                                type="password"
+                                type={showPassword ? 'text' : 'password'}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder="Enter your password"
                                 required
                             />
+                            <button
+                                type="button"
+                                className="password-toggle-btn"
+                                onClick={() => setShowPassword((prev) => !prev)}
+                                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </button>
                         </div>
                     </div>
 

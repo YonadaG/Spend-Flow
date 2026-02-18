@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import api from '../services/api';
 
 const Settings = () => {
-    const { user } = useAuth();
+    const navigate = useNavigate();
+    const { user, logout } = useAuth();
     const { success, error } = useToast();
     const [saving, setSaving] = useState(false);
 
@@ -47,6 +49,12 @@ const Settings = () => {
         } finally {
             setSaving(false);
         }
+    };
+
+    const handleSignOut = async () => {
+        await logout();
+        success('Signed out successfully');
+        navigate('/login');
     };
 
     return (
@@ -95,7 +103,14 @@ const Settings = () => {
                         </label>
                     </div>
 
-                    <div className="pt-4 border-t flex justify-end">
+                    <div className="pt-4 border-t flex justify-between">
+                        <button
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={handleSignOut}
+                        >
+                            Sign Out
+                        </button>
                         <button
                             type="submit"
                             className="btn btn-primary"

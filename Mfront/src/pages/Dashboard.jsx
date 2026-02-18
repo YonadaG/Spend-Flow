@@ -106,7 +106,7 @@ const Dashboard = () => {
         <div className="dashboard-container">
             <header className="flex-between mb-8">
                 <div>
-                    <h1 className="text-3xl font-bold">Dashboard Overview <span className="badge-live">LIVE VIEW</span></h1>
+                    <h1 className="text-3xl font-bold">Dashboard Overview </h1>
                 </div>
                 <div className="search-bar-mock">
                     {/* Search placeholder */}
@@ -120,7 +120,7 @@ const Dashboard = () => {
                     <div>
                         <h4 className="banner-subtitle">SMART CATEGORIZATION</h4>
                         <h2>Automate your finances</h2>
-                        <p>Upload your latest bank statement or snap a picture of a receipt. Our AI engine will automatically categorize your spending.</p>
+                        <p>Upload your latest bank statement or snap a picture of a receipt. Our  engine will automatically categorize your spending.</p>
                     </div>
                 </div>
                 <div className="banner-actions">

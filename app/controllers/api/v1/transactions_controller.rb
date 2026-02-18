@@ -65,7 +65,12 @@ class Api::V1::TransactionsController < ApplicationController
       total_pages: total_pages,
       total_count: total_count,
       transactions: transactions.as_json(
-        only: [:id, :amount, :description, :created_at, :category_id],
+        only: [
+          :id, :amount, :description, :created_at, :category_id,
+          :merchant_name, :payment_reason, :transaction_type, :direction,
+          :currency, :invoice_no, :source, :status, :occurred_at,
+          :payment_channel, :payer_name, :user_category
+        ],
         include: { category: { only: [:id, :name] } }
       )
     }

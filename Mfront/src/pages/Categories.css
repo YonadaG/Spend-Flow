@@ -122,9 +122,27 @@
     color: #9c27b0;
 }
 
+.icon-food {
+    background: #fff8e1;
+    color: #ff9800;
+}
+
+.icon-hospital {
+    background: #e8f5e9;
+    color: #4caf50;
+}
+
 .icon-default {
     background: #f5f5f5;
     color: #757575;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .status-badge {

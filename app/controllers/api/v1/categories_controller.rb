@@ -9,7 +9,8 @@ class Api::V1::CategoriesController < ApplicationController
     render json: categories.map { |category|
       {
         id: category.id,
-        name: category.name
+        name: category.name,
+        description: category.description
       }
     }
   rescue StandardError => e
@@ -72,6 +73,6 @@ class Api::V1::CategoriesController < ApplicationController
   private
 
   def category_params
-    params.require(:category).permit(:name)
+    params.require(:category).permit(:name, :description)
   end
 end

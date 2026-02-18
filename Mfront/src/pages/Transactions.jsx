@@ -95,6 +95,9 @@ const Transactions = () => {
                     <p className="text-muted">You have {transactions.length} transactions.</p>
                 </div>
                 <div className="flex-center gap-3">
+                    <button className="btn btn-secondary flex-center gap-2" onClick={() => navigate('/transactions/new')}>
+                        <FaPlus /> Add Manual
+                    </button>
                     <button className="btn btn-secondary flex-center gap-2" onClick={() => navigate('/upload')}>
                         <FaDownload /> Upload Receipt
                     </button>
