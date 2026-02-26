@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import apiService from '../../services/api';
 import './TransactionDetail.css';
 
@@ -7,13 +7,7 @@ const TransactionDetail = ({ transactionId, onClose }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    if (transactionId) {
-      fetchTransaction();
-    }
-  }, [transactionId]);
-
-  const fetchTransaction = async () => {
+  const fetchTransaction = useCallback(async () => {
     try {
       setLoading(true);
       const data = await apiService.getTransaction(transactionId);
@@ -24,7 +18,13 @@ const TransactionDetail = ({ transactionId, onClose }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [transactionId]);
+
+  useEffect(() => {
+    if (transactionId) {
+      fetchTransaction();
+    }
+  }, [transactionId, fetchTransaction]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleString('en-US', {

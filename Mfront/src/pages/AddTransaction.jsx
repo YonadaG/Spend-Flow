@@ -5,6 +5,28 @@ import { transactionAPI, categoryAPI } from '../services/api';
 import { useToast } from '../context/ToastContext';
 import './AddTransaction.css';
 
+const LOCAL_SETTINGS_KEY = 'expense_tracker_settings';
+
+const getPreferredCurrency = () => {
+    if (typeof window === 'undefined') return 'ETB';
+
+    try {
+        const rawSettings = window.localStorage.getItem(LOCAL_SETTINGS_KEY);
+        if (!rawSettings) return 'ETB';
+
+        const parsedSettings = JSON.parse(rawSettings);
+        const savedCurrency = parsedSettings?.currency;
+
+        if (['USD', 'EUR', 'GBP', 'ETB', 'KES'].includes(savedCurrency)) {
+            return savedCurrency;
+        }
+    } catch (error) {
+        console.error('Failed to parse local settings for currency:', error);
+    }
+
+    return 'ETB';
+};
+
 const AddTransaction = () => {
     const navigate = useNavigate();
     const { success, error: showError } = useToast();
@@ -18,7 +40,7 @@ const AddTransaction = () => {
     const [categoryId, setCategoryId] = useState('');
     const [occurredAt, setOccurredAt] = useState(new Date().toISOString().split('T')[0]);
     const [transactionType, setTransactionType] = useState('expense');
-    const [currency, setCurrency] = useState('ETB');
+    const [currency, setCurrency] = useState(() => getPreferredCurrency());
     const [invoiceNo, setInvoiceNo] = useState('');
     const [paymentChannel, setPaymentChannel] = useState('');
 

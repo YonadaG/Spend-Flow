@@ -55,14 +55,34 @@ const Dashboard = () => {
         fetchData();
     }, []);
 
+    // Get category name by ID
+    const getCategoryName = (categoryId) => {
+        const cat = categories.find(c => c.id === categoryId);
+        return cat ? cat.name : 'Uncategorized';
+    };
+
+    const getTransactionCategoryName = (tx) => {
+        if (tx?.category?.name) return tx.category.name;
+        if (typeof tx?.category === 'string') return tx.category;
+        return getCategoryName(tx?.category_id);
+    };
+
+    const isTransferTransaction = (tx) => {
+        const categoryName = (getTransactionCategoryName(tx) || '').trim().toLowerCase();
+        return categoryName === 'transfer';
+    };
+
+    const getEffectiveTransactionType = (tx) => {
+        if (isTransferTransaction(tx)) return 'expense';
+        return tx.transaction_type || 'expense';
+    };
+
     // Calculate spending breakdown by category
     const calculatePieData = () => {
         const spending = {};
         transactions.forEach(tx => {
-            // Default to expense if transaction_type is missing
-            if (tx.transaction_type === 'expense' || !tx.transaction_type) {
-                const cat = tx.category; // Use nested category object
-                const catName = cat ? cat.name : 'Other';
+            if (getEffectiveTransactionType(tx) === 'expense') {
+                const catName = getTransactionCategoryName(tx) || 'Other';
                 spending[catName] = (spending[catName] || 0) + parseFloat(tx.amount || 0);
             }
         });
@@ -78,25 +98,21 @@ const Dashboard = () => {
     const recentTransactions = transactions.slice(0, 4);
 
     // Calculate totals
-    const totalExpenses = transactions
-        .filter(tx => tx.transaction_type === 'expense' || !tx.transaction_type) // Default to expense
+    const expenseTransactions = transactions
+        .filter(tx => getEffectiveTransactionType(tx) === 'expense');
+    const incomeTransactions = transactions
+        .filter(tx => getEffectiveTransactionType(tx) === 'income');
+
+    const totalExpenses = expenseTransactions
         .reduce((sum, tx) => sum + parseFloat(tx.amount || 0), 0);
 
-    const totalIncome = transactions
-        .filter(tx => tx.transaction_type === 'income')
+    const totalIncome = incomeTransactions
         .reduce((sum, tx) => sum + parseFloat(tx.amount || 0), 0);
 
     const balance = totalIncome - totalExpenses;
 
     const pieData = calculatePieData();
     const totalSpent = pieData.reduce((sum, item) => sum + item.value, 0);
-
-    // Get category name by ID
-    const getCategoryName = (categoryId) => {
-        // Redundant with new logic, but kept for compatibility if needed
-        const cat = categories.find(c => c.id === categoryId);
-        return cat ? cat.name : 'Uncategorized';
-    };
 
     if (loading) {
         return <div className="dashboard-container"><p>Loading dashboard...</p></div>;
@@ -157,7 +173,7 @@ const Dashboard = () => {
                     <div className="card-content">
                         <p>Total Income</p>
                         <h3>${totalIncome.toFixed(2)}</h3>
-                        <span className="sub-text">{transactions.filter(t => t.transaction_type === 'income').length} income transactions</span>
+                        <span className="sub-text">{incomeTransactions.length} income transactions</span>
                     </div>
                 </div>
 
@@ -169,7 +185,7 @@ const Dashboard = () => {
                     <div className="card-content">
                         <p>Total Spending</p>
                         <h3>${totalExpenses.toFixed(2)}</h3>
-                        <span className="sub-text">{transactions.filter(t => t.transaction_type === 'expense').length} expense transactions</span>
+                        <span className="sub-text">{expenseTransactions.length} expense transactions</span>
                     </div>
                 </div>
             </div>
@@ -241,9 +257,8 @@ const Dashboard = () => {
                         </thead>
                         <tbody>
                             {recentTransactions.map(tx => {
-                                // Use category object directly if available
-                                const categoryName = tx.category ? tx.category.name : 'Uncategorized';
-                                const isIncome = tx.transaction_type === 'income';
+                                const categoryName = getTransactionCategoryName(tx);
+                                const isIncome = getEffectiveTransactionType(tx) === 'income';
                                 // Infer status from category presence if status field is missing
                                 const isProcessed = tx.status === 'processed' || !!tx.category;
 

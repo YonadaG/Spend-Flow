@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { FaGasPump, FaUniversity, FaBolt, FaBoxOpen, FaPlus, FaHospital, FaUtensils } from 'react-icons/fa';
 import { categoryAPI, transactionAPI } from '../services/api';
@@ -6,7 +6,7 @@ import { useToast } from '../context/ToastContext';
 import './Categories.css';
 
 const Categories = () => {
-    const { success, error: showError } = useToast();
+    const { error: showError } = useToast();
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -43,7 +43,7 @@ const Categories = () => {
         return mockBudgets[category.name] || 500;
     };
 
-    const fetchCategories = async () => {
+    const fetchCategories = useCallback(async () => {
         try {
             const [catsData, txsData] = await Promise.all([
                 categoryAPI.getAll(),
@@ -86,11 +86,11 @@ const Categories = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [showError]);
 
     useEffect(() => {
         fetchCategories();
-    }, []);
+    }, [fetchCategories]);
 
 
 

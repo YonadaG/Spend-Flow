@@ -5,6 +5,28 @@ import { FaCloudUploadAlt, FaChevronDown, FaCheckCircle, FaShieldAlt, FaMagic, F
 import { transactionAPI, categoryAPI, ocrAPI } from '../services/api';
 import './UploadTransfer.css';
 
+const LOCAL_SETTINGS_KEY = 'expense_tracker_settings';
+
+const getPreferredCurrency = () => {
+    if (typeof window === 'undefined') return 'ETB';
+
+    try {
+        const rawSettings = window.localStorage.getItem(LOCAL_SETTINGS_KEY);
+        if (!rawSettings) return 'ETB';
+
+        const parsedSettings = JSON.parse(rawSettings);
+        const savedCurrency = parsedSettings?.currency;
+
+        if (['USD', 'EUR', 'GBP', 'ETB', 'KES'].includes(savedCurrency)) {
+            return savedCurrency;
+        }
+    } catch (storageError) {
+        console.error('Failed to parse preferred currency from local settings:', storageError);
+    }
+
+    return 'ETB';
+};
+
 const UploadTransfer = () => {
     const navigate = useNavigate();
     const { success, error: toastError, info } = useToast();
@@ -22,6 +44,7 @@ const UploadTransfer = () => {
     const [vendor, setVendor] = useState('');
     const [extractedText, setExtractedText] = useState('');
     const [ocrData, setOcrData] = useState(null);
+    const preferredCurrency = getPreferredCurrency();
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -75,7 +98,7 @@ const UploadTransfer = () => {
                     if (!isNaN(parsedDate.getTime())) {
                         setDate(parsedDate.toISOString().split('T')[0]);
                     }
-                } catch (e) {
+                } catch {
                     // Keep current date if parsing fails
                 }
             }
@@ -109,7 +132,7 @@ const UploadTransfer = () => {
                 payer_name: result.payer_name,
                 payment_channel: result.payment_channel,
                 status: result.status,
-                currency: result.currency || 'ETB',
+                currency: result.currency || preferredCurrency,
                 category_name: result.category_name
             });
 
@@ -163,7 +186,7 @@ const UploadTransfer = () => {
             formData.append('transaction[direction]', 'debit');
 
             // Use currency from OCR data or default
-            const currency = ocrData?.currency || 'ETB';
+            const currency = ocrData?.currency || preferredCurrency;
             formData.append('transaction[currency]', currency);
 
             // Use user_category for auto-categorization

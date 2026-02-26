@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaSearch, FaFilter, FaPlus, FaGasPump, FaBriefcase, FaCloud, FaCoffee, FaHome, FaDownload, FaTrash, FaBoxOpen } from 'react-icons/fa';
+import { FaSearch, FaPlus, FaGasPump, FaBriefcase, FaCloud, FaCoffee, FaHome, FaDownload, FaTrash, FaBoxOpen } from 'react-icons/fa';
 import { transactionAPI, categoryAPI } from '../services/api';
 import './Transactions.css';
 
@@ -67,6 +67,17 @@ const Transactions = () => {
         return { text: 'Processing', class: 'gray' };
     };
 
+    const formatTransactionDate = (value) => {
+        if (!value) return 'N/A';
+        const parsedDate = new Date(value);
+        if (Number.isNaN(parsedDate.getTime())) return 'N/A';
+        return parsedDate.toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit'
+        });
+    };
+
     const filteredTransactions = transactions.filter(tx =>
         (tx.description || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
         (tx.vendor || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -89,12 +100,12 @@ const Transactions = () => {
 
     return (
         <div className="transactions-container-light">
-            <header className="flex-between mb-8">
-                <div>
-                    <h1 className="text-3xl font-bold">Transaction History</h1>
-                    <p className="text-muted">You have {transactions.length} transactions.</p>
+            <header className="transactions-header mb-8">
+                <div className="transactions-heading">
+                    <h1 className="transactions-title">Transaction History</h1>
+                    <p className="text-muted transactions-subtitle">You have {transactions.length} transactions.</p>
                 </div>
-                <div className="flex-center gap-3">
+                <div className="transactions-actions flex-center gap-3">
                     <button className="btn btn-secondary flex-center gap-2" onClick={() => navigate('/transactions/new')}>
                         <FaPlus /> Add Manual
                     </button>
@@ -127,75 +138,82 @@ const Transactions = () => {
 
             {/* Transactions Table */}
             <div className="card p-0 overflow-hidden">
-                <table className="table-clean full-width">
-                    <thead>
-                        <tr className="bg-checkered">
-                            <th className="pl-6">DATE</th>
-                            <th>DESCRIPTION</th>
-                            <th>CATEGORY</th>
-                            <th>STATUS</th>
-                            <th className="text-right pr-6">AMOUNT</th>
-                            <th className="text-right pr-6">ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredTransactions.map((tx) => {
-                            const categoryName = getCategoryName(tx);
-                            const statusInfo = getStatusBadge(tx.status, tx.category);
-                            const isIncome = tx.transaction_type === 'income';
+                <div className="transactions-table-wrap">
+                    <table className="table-clean full-width transactions-table">
+                        <thead>
+                            <tr className="bg-checkered">
+                                <th className="pl-6 col-date">DATE</th>
+                                <th className="col-description">DESCRIPTION</th>
+                                <th className="col-category">CATEGORY</th>
+                                <th className="col-status">STATUS</th>
+                                <th className="col-amount text-right pr-6">AMOUNT</th>
+                                <th className="col-action text-right pr-6">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredTransactions.map((tx) => {
+                                const categoryName = getCategoryName(tx);
+                                const statusInfo = getStatusBadge(tx.status, tx.category);
+                                const isIncome = tx.transaction_type === 'income';
 
-                            return (
-                                <tr key={tx.id} className="hover-row">
-                                    <td className="pl-6 text-muted font-medium">
-                                        {new Date(tx.created_at).toLocaleDateString()}
-                                    </td>
-                                    <td>
-                                        <div className="flex-center justify-start gap-3">
-                                            <div className={`icon-box-sm ${isIncome ? 'green' : 'orange'}`}>
-                                                {getCategoryIcon(categoryName)}
+                                return (
+                                    <tr key={tx.id} className="hover-row tx-row">
+                                        <td className="pl-6 text-muted tx-date">
+                                            {formatTransactionDate(tx.created_at)}
+                                        </td>
+                                        <td className="tx-col-description">
+                                            <div className="tx-main-cell">
+                                                <div className={`icon-box-sm ${isIncome ? 'green' : 'orange'}`}>
+                                                    {getCategoryIcon(categoryName)}
+                                                </div>
+                                                <div className="tx-copy">
+                                                    <span className="tx-title">{tx.merchant_name || tx.vendor || tx.description || 'Transaction'}</span>
+                                                    {tx.payment_reason && (
+                                                        <p className="tx-meta">{tx.payment_reason}</p>
+                                                    )}
+                                                    {tx.invoice_no && (
+                                                        <p className="tx-meta">Invoice: {tx.invoice_no}</p>
+                                                    )}
+                                                </div>
                                             </div>
-                                            <div>
-                                                <span className="font-semibold text-dark">{tx.merchant_name || tx.vendor || tx.description || 'Transaction'}</span>
-                                                {tx.payment_reason && (
-                                                    <p className="text-xs text-muted mt-1">{tx.payment_reason}</p>
-                                                )}
-                                                {tx.invoice_no && (
-                                                    <p className="text-xs text-muted mt-1">Invoice: {tx.invoice_no}</p>
-                                                )}
+                                        </td>
+                                        <td>
+                                            <span className={`badge-pill ${categoryName.toLowerCase().replace(/[^a-z]/g, '-')}`}>
+                                                {categoryName}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div className="flex-center justify-start gap-2 tx-status-cell">
+                                                <span className={`status-dot-sm ${statusInfo.class}`}></span>
+                                                <span className="tx-status-text">{statusInfo.text}</span>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span className={`badge-pill ${categoryName.toLowerCase().replace(/[^a-z]/g, '-')}`}>
-                                            {categoryName}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div className="flex-center justify-start gap-2">
-                                            <span className={`status-dot-sm ${statusInfo.class}`}></span>
-                                            <span className="text-sm font-medium text-dark">{statusInfo.text}</span>
-                                        </div>
-                                    </td>
-                                    <td className={`text-right pr-6 font-bold ${isIncome ? 'text-green' : 'text-red'}`}>
-                                        {isIncome ? '+' : '-'}${Math.abs(parseFloat(tx.amount || 0)).toFixed(2)}
-                                    </td>
-                                    <td className="text-right pr-6">
-                                        <button className="btn-icon-ghost" onClick={() => handleDelete(tx.id)}>
-                                            <FaTrash />
-                                        </button>
+                                        </td>
+                                        <td className={`text-right pr-6 tx-amount ${isIncome ? 'text-green' : 'text-red'}`}>
+                                            {isIncome ? '+' : '-'}${Math.abs(parseFloat(tx.amount || 0)).toFixed(2)}
+                                        </td>
+                                        <td className="text-right pr-6">
+                                            <button
+                                                className="btn-icon-ghost"
+                                                onClick={() => handleDelete(tx.id)}
+                                                aria-label="Delete transaction"
+                                                title="Delete transaction"
+                                            >
+                                                <FaTrash />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                            {filteredTransactions.length === 0 && (
+                                <tr>
+                                    <td colSpan="6" style={{ textAlign: 'center', padding: '2rem', color: '#888' }}>
+                                        No transactions found. Upload a receipt to get started!
                                     </td>
                                 </tr>
-                            );
-                        })}
-                        {filteredTransactions.length === 0 && (
-                            <tr>
-                                <td colSpan="6" style={{ textAlign: 'center', padding: '2rem', color: '#888' }}>
-                                    No transactions found. Upload a receipt to get started!
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
 
                 <div className="pagination p-4 border-t">
                     <span>Showing {filteredTransactions.length} of {transactions.length} transactions</span>
