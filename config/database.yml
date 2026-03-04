@@ -99,20 +99,22 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  primary: &primary_production
-    <<: *default
-    database: expense_tracker_production
-    username: expense_tracker
-    password: <%= ENV["EXPENSE_TRACKER_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: expense_tracker_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: expense_tracker_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: expense_tracker_production_cable
-    migrations_paths: db/cable_migrate
+  # primary: &primary_production
+    primary:
+    url: <%= ENV["DATABASE_URL"] %>
+  #   <<: *default
+  #   database: expense_tracker_production
+  #   username: expense_tracker
+  #   password: <%= ENV["EXPENSE_TRACKER_DATABASE_PASSWORD"] %>
+  # cache:
+  #   <<: *primary_production
+  #   database: expense_tracker_production_cache
+  #   migrations_paths: db/cache_migrate
+  # queue:
+  #   <<: *primary_production
+  #   database: expense_tracker_production_queue
+  #   migrations_paths: db/queue_migrate
+  # cable:
+  #   <<: *primary_production
+  #   database: expense_tracker_production_cable
+  #   migrations_paths: db/cable_migrate
