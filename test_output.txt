@@ -1,0 +1,736 @@
+﻿bundle : D:/projects/r
+ails/Expense-app/expen
+se_tracker/config/data
+base.yml:31:in 
+`fetch': Cannot load 
+database 
+configuration: 
+(KeyError)
+At line:1 char:1
++ bundle exec rails 
+test test/services/rec
+eipt_parser_service_te
+st.rb t ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (D:/project   
+ s/rai...ion: (Key    
+Error):String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+key not found: 
+"DATABASE_USERNAME"
+	from D:/projects/rail
+s/Expense-app/expense_
+tracker/config/databas
+e.yml:31:in `<main>'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/erb-6.0.1/li
+b/erb.rb:1012:in 
+`eval'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/erb-6.0.1/li
+b/erb.rb:1012:in 
+`result'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/configuration_fil
+e.rb:57:in `render'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/configuration_fil
+e.rb:22:in `parse'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/configuration_fil
+e.rb:18:in `parse'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/railties-8.1
+.2/lib/rails/applicati
+on/configuration.rb:46
+1:in `database_configu
+ration'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/railtie.rb:263:in 
+`block (2 levels) in 
+<class:Railtie>'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/lazy_load_hooks.r
+b:97:in `class_eval'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/lazy_load_hooks.r
+b:97:in `block in 
+execute_hook'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/lazy_load_hooks.r
+b:87:in `with_executio
+n_control'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/lazy_load_hooks.r
+b:92:in `execute_hook'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/lazy_load_hooks.r
+b:78:in `block in 
+run_load_hooks'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/lazy_load_hooks.r
+b:77:in `each'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/lazy_load_hooks.r
+b:77:in 
+`run_load_hooks'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/base.rb:336:in `<mo
+dule:ActiveRecord>'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/base.rb:15:in 
+`<main>'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `require'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `block 
+(2 levels) in 
+replace_require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/bootsnap-1.2
+2.0/lib/bootsnap/load_
+path_cache/core_ext/ke
+rnel_require.rb:33:in 
+`require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/zeitwerk-2.7
+.4/lib/zeitwerk/core_e
+xt/kernel.rb:34:in 
+`require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/migration.rb:755:in
+ `db_configs_in_curren
+t_env'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/migration.rb:749:in
+ `any_schema_needs_upd
+ate?'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/migration.rb:710:in
+ `load_schema_if_pendi
+ng!'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/migration.rb:719:in
+ `block in 
+maintain_test_schema!'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/migration.rb:1036:i
+n `suppress_messages'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/migration.rb:724:in
+ `method_missing'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/migration.rb:719:in
+ `maintain_test_schema
+!'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/railties-8.1
+.2/lib/rails/testing/m
+aintain_test_schema.rb
+:5:in `<main>'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `require'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `block 
+(2 levels) in 
+replace_require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/bootsnap-1.2
+2.0/lib/bootsnap/load_
+path_cache/core_ext/ke
+rnel_require.rb:33:in 
+`require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/zeitwerk-2.7
+.4/lib/zeitwerk/core_e
+xt/kernel.rb:34:in 
+`require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/railties-8.1
+.2/lib/rails/test_help
+.rb:13:in `<main>'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `require'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `block 
+(2 levels) in 
+replace_require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/bootsnap-1.2
+2.0/lib/bootsnap/load_
+path_cache/core_ext/ke
+rnel_require.rb:33:in 
+`require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/zeitwerk-2.7
+.4/lib/zeitwerk/core_e
+xt/kernel.rb:34:in 
+`require'
+	from D:/projects/rail
+s/Expense-app/expense_
+tracker/test/test_help
+er.rb:3:in `<main>'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `require'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `block 
+(2 levels) in 
+replace_require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/bootsnap-1.2
+2.0/lib/bootsnap/load_
+path_cache/core_ext/ke
+rnel_require.rb:33:in 
+`require'
+	from D:/projects/rail
+s/Expense-app/expense_
+tracker/test/services/
+receipt_parser_service
+_test.rb:1:in `<main>'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `require'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `block 
+(2 levels) in 
+replace_require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/bootsnap-1.2
+2.0/lib/bootsnap/load_
+path_cache/core_ext/ke
+rnel_require.rb:33:in 
+`require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/railties-8.1
+.2/lib/rails/test_unit
+/runner.rb:71:in 
+`block in load_tests'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/railties-8.1
+.2/lib/rails/test_unit
+/runner.rb:69:in 
+`each'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/railties-8.1
+.2/lib/rails/test_unit
+/runner.rb:69:in 
+`load_tests'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/railties-8.1
+.2/lib/minitest/rails_
+plugin.rb:147:in 
+`block in 
+plugin_rails_options'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1715:in `block in 
+parse_in_order'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:913:in `search'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1832:in `block in 
+visit'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1831:in 
+`reverse_each'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1831:in `visit'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1715:in 
+`parse_in_order'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1630:in `order!'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1739:in `permute!'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1764:in `parse!'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/minitest-5.2
+6.0/lib/minitest.rb:22
+4:in `block in 
+process_args'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1153:in 
+`initialize'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/minitest-5.2
+6.0/lib/minitest.rb:14
+9:in `new'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/minitest-5.2
+6.0/lib/minitest.rb:14
+9:in `process_args'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/minitest-5.2
+6.0/lib/minitest.rb:27
+3:in `run'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/minitest-5.2
+6.0/lib/minitest.rb:86
+:in `block in autorun'
+D:/projects/rails/Expe
+nse-app/expense_tracke
+r/config/database.yml:
+31:in `fetch': key 
+not found: 
+"DATABASE_USERNAME" 
+(KeyError)
+	from D:/projects/rail
+s/Expense-app/expense_
+tracker/config/databas
+e.yml:31:in `<main>'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/erb-6.0.1/li
+b/erb.rb:1012:in 
+`eval'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/erb-6.0.1/li
+b/erb.rb:1012:in 
+`result'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/configuration_fil
+e.rb:57:in `render'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/configuration_fil
+e.rb:22:in `parse'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/configuration_fil
+e.rb:18:in `parse'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/railties-8.1
+.2/lib/rails/applicati
+on/configuration.rb:46
+1:in `database_configu
+ration'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/railtie.rb:263:in 
+`block (2 levels) in 
+<class:Railtie>'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/lazy_load_hooks.r
+b:97:in `class_eval'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/lazy_load_hooks.r
+b:97:in `block in 
+execute_hook'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/lazy_load_hooks.r
+b:87:in `with_executio
+n_control'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/lazy_load_hooks.r
+b:92:in `execute_hook'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/lazy_load_hooks.r
+b:78:in `block in 
+run_load_hooks'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/lazy_load_hooks.r
+b:77:in `each'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activesuppor
+t-8.1.2/lib/active_sup
+port/lazy_load_hooks.r
+b:77:in 
+`run_load_hooks'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/base.rb:336:in `<mo
+dule:ActiveRecord>'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/base.rb:15:in 
+`<main>'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `require'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `block 
+(2 levels) in 
+replace_require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/bootsnap-1.2
+2.0/lib/bootsnap/load_
+path_cache/core_ext/ke
+rnel_require.rb:33:in 
+`require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/zeitwerk-2.7
+.4/lib/zeitwerk/core_e
+xt/kernel.rb:34:in 
+`require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/migration.rb:755:in
+ `db_configs_in_curren
+t_env'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/migration.rb:749:in
+ `any_schema_needs_upd
+ate?'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/migration.rb:710:in
+ `load_schema_if_pendi
+ng!'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/migration.rb:719:in
+ `block in 
+maintain_test_schema!'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/migration.rb:1036:i
+n `suppress_messages'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/migration.rb:724:in
+ `method_missing'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/activerecord
+-8.1.2/lib/active_reco
+rd/migration.rb:719:in
+ `maintain_test_schema
+!'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/railties-8.1
+.2/lib/rails/testing/m
+aintain_test_schema.rb
+:5:in `<main>'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `require'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `block 
+(2 levels) in 
+replace_require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/bootsnap-1.2
+2.0/lib/bootsnap/load_
+path_cache/core_ext/ke
+rnel_require.rb:33:in 
+`require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/zeitwerk-2.7
+.4/lib/zeitwerk/core_e
+xt/kernel.rb:34:in 
+`require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/railties-8.1
+.2/lib/rails/test_help
+.rb:13:in `<main>'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `require'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `block 
+(2 levels) in 
+replace_require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/bootsnap-1.2
+2.0/lib/bootsnap/load_
+path_cache/core_ext/ke
+rnel_require.rb:33:in 
+`require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/zeitwerk-2.7
+.4/lib/zeitwerk/core_e
+xt/kernel.rb:34:in 
+`require'
+	from D:/projects/rail
+s/Expense-app/expense_
+tracker/test/test_help
+er.rb:3:in `<main>'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `require'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `block 
+(2 levels) in 
+replace_require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/bootsnap-1.2
+2.0/lib/bootsnap/load_
+path_cache/core_ext/ke
+rnel_require.rb:33:in 
+`require'
+	from D:/projects/rail
+s/Expense-app/expense_
+tracker/test/services/
+receipt_parser_service
+_test.rb:1:in `<main>'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `require'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/bundled_g
+ems.rb:69:in `block 
+(2 levels) in 
+replace_require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/bootsnap-1.2
+2.0/lib/bootsnap/load_
+path_cache/core_ext/ke
+rnel_require.rb:33:in 
+`require'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/railties-8.1
+.2/lib/rails/test_unit
+/runner.rb:71:in 
+`block in load_tests'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/railties-8.1
+.2/lib/rails/test_unit
+/runner.rb:69:in 
+`each'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/railties-8.1
+.2/lib/rails/test_unit
+/runner.rb:69:in 
+`load_tests'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/railties-8.1
+.2/lib/minitest/rails_
+plugin.rb:147:in 
+`block in 
+plugin_rails_options'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1715:in `block in 
+parse_in_order'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:913:in `search'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1832:in `block in 
+visit'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1831:in 
+`reverse_each'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1831:in `visit'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1715:in 
+`parse_in_order'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1630:in `order!'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1739:in `permute!'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1764:in `parse!'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/minitest-5.2
+6.0/lib/minitest.rb:22
+4:in `block in 
+process_args'
+	from C:/Ruby33-x64/li
+b/ruby/3.3.0/optparse.
+rb:1153:in 
+`initialize'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/minitest-5.2
+6.0/lib/minitest.rb:14
+9:in `new'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/minitest-5.2
+6.0/lib/minitest.rb:14
+9:in `process_args'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/minitest-5.2
+6.0/lib/minitest.rb:27
+3:in `run'
+	from C:/Users/Owner/.
+local/share/gem/ruby/3
+.3.0/gems/minitest-5.2
+6.0/lib/minitest.rb:86
+:in `block in autorun'

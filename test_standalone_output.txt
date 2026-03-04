@@ -1,0 +1,45 @@
+﻿
+== Credited Party vendor extraction ==
+  笨・Should extract Credited Party name
+
+== Debited from X for Y vendor extraction ==
+  笨・Should extract 'for Y' as merchant
+    Expected pattern: /EL-OUZEIR HEALTH & SAFETY PLC/i
+    Actual:   "HERMELA G/MEDHIN HADUSH"
+
+== CBE Receiver vendor extraction ==
+  笨・Should extract Receiver as merchant
+
+== DD-Mon-YYYY date extraction ==
+  笨・Should parse 30-Jan-2026 correctly
+
+== DD-MM-YYYY date with time extraction ==
+  笨・Should parse 05-12-2025 as Dec 5, 2025
+
+== CBE Payment Date & Time field ==
+  笨・Should parse CBE date field
+
+== Category: 'total' should not trigger Fuel ==
+  笨・'Total Amount' should not categorize as Fuel
+
+== Category: CBE Transfer ==
+  笨・CBE receipt should be Transfer
+
+== Category: debited from => Transfer ==
+  笨・'debited from' text should be Transfer
+
+== Category: Fuel Payment ==
+  笨・Fuel Payment text should be Fuel
+
+== Category: Utilities ==
+  笨・Electric / Telecom should be Utilities
+
+== Category: Food ==
+  笨・Coffee shop should be Food
+
+== Category: Other (default) ==
+  笨・Unknown text should be Other
+
+========================================
+Results: 12 passed, 1 failed out of 13 tests
+========================================

@@ -10,7 +10,8 @@ class Api::V1::CategoriesController < ApplicationController
       {
         id: category.id,
         name: category.name,
-        description: category.description
+        description: category.description,
+        icon: category.icon
       }
     }
   rescue StandardError => e
@@ -27,6 +28,7 @@ class Api::V1::CategoriesController < ApplicationController
       render json: {
         id: category.id,
         name: category.name,
+        icon: category.icon,
         message: "Category created successfully"
       }, status: :created
     else
@@ -73,6 +75,6 @@ class Api::V1::CategoriesController < ApplicationController
   private
 
   def category_params
-    params.require(:category).permit(:name, :description)
+    params.require(:category).permit(:name, :description, :icon)
   end
 end

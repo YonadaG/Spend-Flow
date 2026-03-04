@@ -91,7 +91,7 @@ class OcrService
   def self.run_tesseract(image_path, psm: 6)
     image = RTesseract.new(
       image_path,
-      command: "C:/Program Files/Tesseract-OCR/tesseract.exe",
+      command: tesseract_command,
       psm: psm,
       oem: 3  # Use LSTM + Legacy engine for best results
     )
@@ -140,5 +140,14 @@ class OcrService
     score += text.scan(/\w+\s*[:]\s*\S+/).length * 30
 
     score
+  end
+
+  # Returns the correct Tesseract command for the current OS
+  def self.tesseract_command
+    if Gem.win_platform?
+      "C:/Program Files/Tesseract-OCR/tesseract.exe"
+    else
+      "tesseract"
+    end
   end
 end

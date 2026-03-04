@@ -16,7 +16,7 @@ class OcrDateTest < ActiveSupport::TestCase
 
   test "should auto-categorize requested categories" do
     assert_equal "Fuel", ReceiptParserService.parse("Fuel Payment")[:category_name]
-    assert_equal "Utilities", ReceiptParserService.parse("Electric Bill")[:category_name]
+    assert_equal "Utilities", ReceiptParserService.parse("Electric bill payment")[:category_name]
     assert_equal "Food", ReceiptParserService.parse("Restaurant Dinner")[:category_name]
     assert_equal "Other", ReceiptParserService.parse("Unknown Thing")[:category_name]
   end

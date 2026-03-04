@@ -40,6 +40,18 @@ class ReceiptParserService
     cbe_receiver = find_field_value(%w[receiver payee beneficiary])
     return clean_text(cbe_receiver) if cbe_receiver.present?
 
+    # Telebirr/Ethiopian: Credited Party name
+    credited_party = find_field_value(["credited party name", "credited party"])
+    return clean_text(credited_party) if credited_party.present?
+
+    # CBE SMS: "debited from X for Y" — extract Y (the receiver/merchant)
+    debit_for_match = @raw_text.match(/debited\s+from\s+[^\n]+?\s+for\s+([A-Z][A-Z\s\/\.&]+?)(?:\s*-\s*ETB|\s+on\s+|$)/im)
+    return clean_text(debit_for_match[1]) if debit_for_match
+
+    # CBE SMS: "debited from NAME" (when no "for" clause)
+    debit_from_match = @raw_text.match(/debited\s+from\s+([A-Z][A-Z\s\/\.]+?)\s+(?:for|on|with)\b/im)
+    return clean_text(debit_from_match[1]) if debit_from_match
+
     # Generic merchant patterns
     merchant_patterns = [
       /(?:merchant|vendor|store|shop|payee|paid\s+to)[:\s]+([^\n]+)/i,
@@ -56,7 +68,7 @@ class ReceiptParserService
       !line.match?(/^\d+[\/-]\d+/) &&       # Not a date
       !line.match?(/^\$?\d+\.?\d*$/) &&      # Not a plain amount
       !line.match?(/^total/i) &&             # Not "total"
-      !line.match?(/^(payment|account|payer|date|reference|reason|commission|amount)/i) && # Not a label
+      !line.match?(/^(payment|account|payer|date|reference|reason|commission|amount|message|thank)/i) && # Not a label
       line.length > 3                         # Reasonable length
     end
 
@@ -186,9 +198,14 @@ class ReceiptParserService
       /(\d{1,2}\/\d{1,2}\/\d{4}),?\s*(\d{1,2}:\d{2}:\d{2}\s*(?:AM|PM)?)/i,
       # Pattern from user example: (05-01-2026 19:46:30
       /\(\s*(\d{2}-\d{2}-\d{4}\s+\d{2}:\d{2}:\d{2})/,
+      # CBE SMS: "on 30-Jan-2026" or "on 05-12-2025"
+      /\bon\s+(\d{1,2}-(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4})/i,
+      /\bon\s+(\d{1,2}-\d{1,2}-\d{4})/i,
       /(?:date|on|dated|transaction\s+date)[:\s]+(\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4})/i,
       /(?:date|on|dated|transaction\s+date)[:\s]+(\d{4}[\/-]\d{1,2}[\/-]\d{1,2})/i,
       /(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})/, # ISO format
+      # DD-Mon-YYYY anywhere in text (e.g., 30-Jan-2026)
+      /(\d{1,2}-(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4})/i,
       /(\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{2,4})/i
     ]
 
@@ -212,7 +229,7 @@ class ReceiptParserService
       return parsed.iso8601 if parsed
     end
 
-    # Look for any date-like pattern
+    # Look for any date-like pattern (DD-MM-YYYY or DD/MM/YYYY)
     general_date = @raw_text.match(/(\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4})/)
     if general_date
       parsed = try_parse_date(general_date[1])
@@ -369,30 +386,35 @@ class ReceiptParserService
   def auto_categorize
     # Smart categorization based on keywords
     # Returns exact default category names: Food, Hospital, Transfer, Utilities, Fuel, Other
+    # NOTE: Order matters! More specific categories are checked first.
+    # Generic banking terms (payer, receiver, etc.) appear in ALL receipts,
+    # so Transfer is checked last before the default.
 
-    # 1. Food
-    if @raw_text.match?(/food|restaurant|grocery|dining|meal|snack|cafe|coffee|lunch|dinner|breakfast|burger|pizza|kitchen|bakery|supermarket|market/i)
+    text_lower = @raw_text.downcase
+
+    # 1. Food — check first since food-related keywords are very specific
+    if text_lower.match?(/\b(?:food|restaurant|grocery|dining|meal|snack|cafe|coffee|lunch|dinner|breakfast|burger|pizza|kitchen|bakery|supermarket|market|catering)\b/)
       return "Food"
     end
 
-    # 2. Hospital
-    if @raw_text.match?(/hospital|medical|clinic|pharmacy|doctor|health|medicine|drug|healthcare|patient|treatment/i)
+    # 2. Hospital / Medical — specific medical terms
+    if text_lower.match?(/\b(?:hospital|medical|clinic|pharmacy|doctor|health|medicine|drug|healthcare|patient|treatment|dental|laboratory|lab\s+test)\b/)
       return "Hospital"
     end
 
-    # 3. Transfer (CBE, bank receipts, mobile payments)
-    if @raw_text.match?(/transfer|send|receive|remittance|wire|deposit|withdrawal|payer|receiver|commercial\s+bank|cbe|payment\s+done\s+via/i)
-      return "Transfer"
+    # 3. Fuel — specific fuel/gas terms ("total" removed: it appears in every receipt as "Total Amount")
+    if text_lower.match?(/\b(?:fuel|\bgas\b|petrol|diesel|benzene|filling\s+station|shell|exxon|\bbp\b|noc|oil\s+libya|fuel\s+payment)\b/)
+      return "Fuel"
     end
 
-    # 4. Utilities
-    if @raw_text.match?(/electric|water|utility|bill|power|energy|telecom|internet|wifi|phone|airtime|bundle|package/i)
+    # 4. Utilities — specific utility terms
+    if text_lower.match?(/\b(?:electric|water\s+bill|utility|\bpower\b|energy|telecom|internet|wifi|phone\s+bill|airtime|bundle|package|ethio\s*telecom|telebirr|subscription)\b/)
       return "Utilities"
     end
 
-    # 5. Fuel
-    if @raw_text.match?(/fuel|gas|petrol|diesel|benzene|station|shell|exxon|bp|total|oil/i)
-      return "Fuel"
+    # 5. Transfer — only specific banking/transfer terms, NOT generic receipt words
+    if text_lower.match?(/\b(?:transfer(?:red)?|remittance|wire|deposit|withdrawal|commercial\s+bank|\bcbe\b|payment\s+done\s+via|debited\s+from|mobile\s+banking|bank\s+transfer)\b/)
+      return "Transfer"
     end
 
     # Default fallback
@@ -454,6 +476,8 @@ class ReceiptParserService
       '%d-%m-%Y %H:%M:%S',
       '%d/%m/%Y %H:%M:%S',
       '%m/%d/%Y %H:%M:%S',
+      '%d-%b-%Y',         # 30-Jan-2026
+      '%d-%B-%Y',         # 30-January-2026
       '%d-%m-%Y',
       '%d/%m/%Y',
       '%Y-%m-%d',
